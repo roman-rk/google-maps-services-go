@@ -404,7 +404,6 @@ func (r *PlaceDetailsRequest) params() url.Values {
 		q.Set("reviews_no_translations", "true")
 	}
 
-
 	if r.ReviewsSort != "" {
 		q.Set("reviews_sort", r.ReviewsSort)
 	}
@@ -901,7 +900,7 @@ func (c *Client) PlacePhoto(ctx context.Context, r *PlacePhotoRequest) (PlacePho
 		return PlacePhotoResponse{}, errors.New("maps: request exceeds your available quota")
 	}
 
-	return PlacePhotoResponse{resp.contentType, resp.data}, nil
+	return PlacePhotoResponse{resp.contentType, resp.redirectURL, resp.data}, nil
 }
 
 func (r *PlacePhotoRequest) params() url.Values {
@@ -937,6 +936,8 @@ type PlacePhotoRequest struct {
 type PlacePhotoResponse struct {
 	// ContentType is the server reported type of the Image.
 	ContentType string
+	// URL is the URL of the image.
+	URL *url.URL
 	// Data is the server returned image data. You must close this after you are
 	// finished.
 	Data io.ReadCloser
