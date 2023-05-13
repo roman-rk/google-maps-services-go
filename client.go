@@ -51,6 +51,7 @@ type ClientOption func(*Client) error
 var defaultRequestsPerSecond = 50
 
 type contextKey string
+
 func (c contextKey) String() string {
 	return "maps " + string(c)
 }
@@ -335,6 +336,7 @@ func (c *Client) setExperienceIdHeader(ctx context.Context, req *http.Request) {
 type binaryResponse struct {
 	statusCode  int
 	contentType string
+	redirectURL *url.URL
 	data        io.ReadCloser
 }
 
@@ -347,7 +349,7 @@ func (c *Client) getBinary(ctx context.Context, config *apiConfig, apiReq apiReq
 	}
 
 	requestMetrics.EndRequest(ctx, err, httpResp, httpResp.Header.Get("x-goog-maps-metro-area"))
-	return binaryResponse{httpResp.StatusCode, httpResp.Header.Get("Content-Type"), httpResp.Body}, nil
+	return binaryResponse{httpResp.StatusCode, httpResp.Header.Get("Content-Type"), httpResp.Request.URL, httpResp.Body}, nil
 }
 
 func (c *Client) generateAuthQuery(path string, q url.Values, acceptClientID bool, acceptsSignature bool) (string, error) {
