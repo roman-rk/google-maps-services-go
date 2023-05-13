@@ -1,4 +1,4 @@
-module googlemaps.github.io/maps
+module github.com/roman-rk/google-maps-services-go
 
 go 1.14
 
