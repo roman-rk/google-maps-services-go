@@ -309,6 +309,10 @@ type PlacesSearchResponse struct {
 
 // PlacesSearchResult is an individual Places API search result
 type PlacesSearchResult struct {
+	// EditorialSummary Contains a summary of the place.
+	// A summary is comprised of a textual overview, and also includes the language code for these if applicable.
+	// Summary text must be presented as-is and can not be modified or altered.
+	EditorialSummary PlaceEditorialSummary `json:"editorial_summary,omitempty"`
 	// FormattedAddress is the human-readable address of this place
 	FormattedAddress string `json:"formatted_address,omitempty"`
 	// Geometry contains geometry information about the result, generally including the

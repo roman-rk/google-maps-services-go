@@ -719,6 +719,7 @@ const (
 	PlaceSearchFieldMaskReference                    = PlaceSearchFieldMask("reference")
 	PlaceSearchFieldMaskTypes                        = PlaceSearchFieldMask("types")
 	PlaceSearchFieldMaskVicinity                     = PlaceSearchFieldMask("vicinity")
+	PlaceSearchFieldMaskEditorialSummary             = PlaceSearchFieldMask("editorial_summary")
 )
 
 // ParsePlaceSearchFieldMask will parse a string representation of
@@ -777,6 +778,8 @@ func ParsePlaceSearchFieldMask(placeSearchFieldMask string) (PlaceSearchFieldMas
 		return PlaceSearchFieldMaskTypes, nil
 	case "vicinity":
 		return PlaceSearchFieldMaskVicinity, nil
+	case "editorial_summary":
+		return PlaceSearchFieldMaskEditorialSummary, nil
 	default:
 		return PlaceSearchFieldMask(""), fmt.Errorf("Unknown PlaceSearchFieldMask \"%v\"", placeSearchFieldMask)
 	}
